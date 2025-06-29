@@ -1,3 +1,4 @@
+console.log("Using custom Next.js config");
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
