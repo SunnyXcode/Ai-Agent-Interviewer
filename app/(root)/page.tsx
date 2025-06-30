@@ -5,10 +5,11 @@ import Image from "next/image";
 
 import InterviewCard from "@/components/InterviewCard";
 import {
-  getCurrentUser,
   getInterviewsByUserId,
   getLatestInterview,
-} from "@/lib/actions/auth.action";
+} from "@/lib/actions/general.auth.action";
+
+import { getCurrentUser } from "@/lib/actions/auth.action";
 import { dummyInterviews } from "@/constants";
 
 const page = async () => {

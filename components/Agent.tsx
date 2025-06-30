@@ -31,6 +31,23 @@ const Agent = ({
   const [callStatus, setCallStatus] = useState<CallStatus>(CallStatus.INACTIVE);
   const [messages, setMessages] = useState<SavedMessage[]>([]);
 
+  const handleGenerateFeedback = async (messages: SavedMessage[]) => {
+    console.log("Genrate feedback here.");
+
+    //Todo : Create a server action that generates feedback
+    const { success, id } = {
+      success: true,
+      id: "feedback-id",
+    };
+
+    if (success && id) {
+      router.push(`/interview/${interviewId}/feedback`);
+    } else {
+      console.log("Error saving feedback");
+      router.push("/");
+    }
+  };
+
   useEffect(() => {
     const onCallStart = () => setCallStatus(CallStatus.ACTIVE);
     const onCallEnd = () => setCallStatus(CallStatus.FINISHED);
@@ -66,6 +83,13 @@ const Agent = ({
   }, []);
 
   useEffect(() => {
+    if (callStatus === CallStatus.FINISHED) {
+      if (type === "generate") {
+        router.push("/");
+      } else {
+        handleGenerateFeedback(messages);
+      }
+    }
     if (callStatus === CallStatus.FINISHED) router.push("/");
   }, [messages, callStatus, type, userId]);
 
